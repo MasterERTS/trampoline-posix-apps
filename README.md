@@ -16,14 +16,14 @@
   <p align="center">
     What does it do ? Briefly.
     <br />
-    <a href="https://github.com/master-coro/template/readme.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/master-coro/trampoline-posix-apps/readme.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/master-coro/template">View Demo</a>
+    <a href="https://github.com/master-coro/trampoline-posix-apps">View Demo</a>
     ·
-    <a href="https://github.com/master-coro/template/issues">Report Bug</a>
+    <a href="https://github.com/master-coro/trampoline-posix-apps/issues">Report Bug</a>
     ·
-    <a href="https://github.com/master-coro/template/issues">Request Feature</a>
+    <a href="https://github.com/master-coro/trampoline-posix-apps/issues">Request Feature</a>
   </p>
 </p>
 
@@ -68,7 +68,7 @@
 
 ## Roadmap
 
-See the [open issues](https://github.com/master-coro/template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/master-coro/trampoline-posix-apps/issues) for a list of proposed features (and known issues).
 
 ## Contribute
 
@@ -76,7 +76,7 @@ Contributions are what make the open source community such an amazing place to l
 
 ### Contribute on proposed features
 
-1. Choose any open issue from [here](https://github.com/master-coro/template/issues). 
+1. Choose any open issue from [here](https://github.com/master-coro/trampoline-posix-apps/issues). 
 2. Comment on the issue: `Can I work on this?` and get assigned.
 3. Make changes to your `Fork` and send a PR.
 
@@ -115,15 +115,15 @@ Erwin Lejeune - [@spida_rwin](https://twitter.com/spida_rwin) - erwin.lejeune15@
 
 - [Erwin Lejeune](https://github.com/Guilyx)
 
-[contributors-shield]: https://img.shields.io/github/contributors/master-coro/template.svg?style=flat-square
-[contributors-url]: https://github.com/master-coro/template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/master-coro/template.svg?style=flat-square
-[forks-url]: https://github.com/master-coro/template/network/members
-[stars-shield]: https://img.shields.io/github/stars/master-coro/template.svg?style=flat-square
-[stars-url]: https://github.com/master-coro/template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/master-coro/template.svg?style=flat-square
-[issues-url]: https://github.com/master-coro/template/issues
-[license-shield]: https://img.shields.io/github/license/master-coro/template.svg?style=flat-square
-[license-url]: https://github.com/master-coro/template/blob/master/LICENSE.md
+[contributors-shield]: https://img.shields.io/github/contributors/master-coro/trampoline-posix-apps.svg?style=flat-square
+[contributors-url]: https://github.com/master-coro/trampoline-posix-apps/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/master-coro/trampoline-posix-apps.svg?style=flat-square
+[forks-url]: https://github.com/master-coro/trampoline-posix-apps/network/members
+[stars-shield]: https://img.shields.io/github/stars/master-coro/trampoline-posix-apps.svg?style=flat-square
+[stars-url]: https://github.com/master-coro/trampoline-posix-apps/stargazers
+[issues-shield]: https://img.shields.io/github/issues/master-coro/trampoline-posix-apps.svg?style=flat-square
+[issues-url]: https://github.com/master-coro/trampoline-posix-apps/issues
+[license-shield]: https://img.shields.io/github/license/master-coro/trampoline-posix-apps.svg?style=flat-square
+[license-url]: https://github.com/master-coro/trampoline-posix-apps/blob/master/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/erwinlejeune-lkn
