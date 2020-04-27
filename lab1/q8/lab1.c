@@ -11,10 +11,10 @@ FUNC(int, OS_APPL_CODE) main(void)
 
 TASK(server)
 {
-    while(1) {
+    ActivateTask(task1);
+    for(int i = 0 ; i < 6 ; i++) {
         EventMaskType received = 0x0;
         printf("==Server Task==\r\n");
-        ActivateTask(task1);
         printf("Server Waiting for Event //EV_SERVER//\r\n");
         WaitEvent(ev_server);
         GetEvent(server, &received);

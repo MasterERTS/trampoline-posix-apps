@@ -53,21 +53,21 @@ CPU lab1 {
   TASK task1 {
     PRIORITY = 1;
     AUTOSTART = FALSE;
-    ACTIVATION = 2;
+    ACTIVATION = 1;
     SCHEDULE = FULL;
   };
 
   TASK task2 {
     PRIORITY = 1;
     AUTOSTART = FALSE;
-    ACTIVATION = 2;
+    ACTIVATION = 1;
     SCHEDULE = FULL;
   };
 
   TASK task3 {
     PRIORITY = 1;
     AUTOSTART = FALSE;
-    ACTIVATION = 2;
+    ACTIVATION = 1;
     SCHEDULE = FULL;
   };
 
