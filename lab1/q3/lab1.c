@@ -9,10 +9,10 @@ FUNC(int, OS_APPL_CODE) main(void)
 
 TASK(task1)
 {
+    StatusType status;
 	printf("Hello world\r\n");
-    ActivateTask(task2);
     ActivateTask(task3);
-    TerminateTask();
+    ChainTask(task2);
 }
 
 TASK(task2)
