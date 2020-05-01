@@ -46,6 +46,12 @@ CPU lab1 {
     PRIORITY = 2;
   };
 
+  ISR when_b {
+    SOURCE = SIGTRAP;
+    CATEGORY = 2;
+    PRIORITY = 2;
+  };
+
   TASK task1 {
     PRIORITY = 1;
     AUTOSTART = FALSE;

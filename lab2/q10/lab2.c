@@ -23,6 +23,17 @@ ISR (when_a)
     set = !set;
 }
 
+ISR (when_b)
+{
+    static bool set = true;
+    if (set) {
+        set_leds(BLUE);
+    } else {
+        reset_leds(BLUE);
+    }
+    set = !set;
+}
+
 TASK (task1)
 {
     static bool set = true;
