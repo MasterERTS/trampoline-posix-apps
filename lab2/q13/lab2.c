@@ -13,25 +13,55 @@ int main(void)
 
 ISR (when_a)
 {
-    static bool set = true;
-
-    if (set) {
-        set_leds(GREEN);
+    static bool active = true;
+    if (active) {
+        SetEvent(server, wakeup);
+        printf("Set Event |WAKEUP|\r\n");
     } else {
-        reset_leds(GREEN);
+        SetEvent(server, sleeping);
+        printf("Set Event |SLEEP|\r\n");
     }
-    set = !set;
+    active = !active;
 }
 
-ISR (when_b)
+ISR (when_b) 
 {
-    static bool set = true;
-    if (set) {
-        set_leds(BLUE);
-    } else {
-        reset_leds(BLUE);
+    SetEvent(server, terminate);
+    printf("Set Event |TERMINATE|\r\n");
+    ActivateTask(server);
+}
+
+TASK (server)
+{
+    printf("== Server ==\r\n");
+    static bool state = false;
+    EventMaskType received = 0x0;
+    WaitEvent(wakeup | sleeping | terminate);
+    GetEvent(server, &received);
+    ClearEvent(received);
+    if ((received & wakeup) && (state == false))
+    {
+        // Wake Up
+        state = true;
+        printf("wake up\r\n");
+        SetRelAlarm(halfSec, 50, 50);
     }
-    set = !set;
+    if ((received & sleeping) && (state == true))
+    {
+        // Sleep
+        state = false;
+        printf("sleep\r\n");
+        CancelAlarm(halfSec);
+    }
+    if (received & terminate)
+    {
+        // Terminate
+        state = false;
+        printf("shutdown\r\n");
+        CancelAlarm(halfSec);
+        ShutdownOS(OSDEFAULTAPPMODE);
+    }
+    TerminateTask();
 }
 
 TASK (task1)
@@ -39,9 +69,9 @@ TASK (task1)
     static bool set = true;
 
     if (set) {
-        set_leds(RED);
+        set_leds(GREEN);
     } else {
-        reset_leds(RED);
+        reset_leds(GREEN);
     }
     set = !set;
 }

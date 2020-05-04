@@ -34,10 +34,16 @@ CPU lab1 {
 
   APPMODE AppStd {};
 
-  ALARM oneSec {
+  ALARM clockFour {
     COUNTER = SystemCounter;
     ACTION = ACTIVATETASK { TASK = task1; };
-    AUTOSTART = TRUE { APPMODE = AppStd; ALARMTIME = 100; CYCLETIME = 100; };
+    AUTOSTART = FALSE;
+  };
+
+  ALARM clockFive {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = task2; };
+    AUTOSTART = FALSE;
   };
 
   ISR when_a {
@@ -52,7 +58,23 @@ CPU lab1 {
     PRIORITY = 2;
   };
 
+  TASK server {
+    PRIORITY = 1;
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+    };
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
+
   TASK task1 {
+    PRIORITY = 1;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
+
+  TASK task2 {
     PRIORITY = 1;
     AUTOSTART = FALSE;
     ACTIVATION = 1;

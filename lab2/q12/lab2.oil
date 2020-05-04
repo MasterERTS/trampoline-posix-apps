@@ -36,8 +36,8 @@ CPU lab1 {
 
   ALARM halfSec {
     COUNTER = SystemCounter;
-    ACTION = ACTIVATETASK { TASK = task1; };
-    AUTOSTART = TRUE { APPMODE = AppStd; ALARMTIME = 50; CYCLETIME = 50; };
+    ACTION = ACTIVATETASK { TASK = task2; };
+    AUTOSTART = FALSE;
   };
 
   ISR when_a {
@@ -53,6 +53,13 @@ CPU lab1 {
   };
 
   TASK task1 {
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
+
+  TASK task2 {
     PRIORITY = 1;
     AUTOSTART = FALSE;
     ACTIVATION = 1;
