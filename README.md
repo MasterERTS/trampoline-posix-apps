@@ -5,67 +5,6 @@
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
-<br />
-<p align="center">
-    <!--- relative path means image/image.png instead of https://etc... -->
-    <img src="relativeimagepath" alt="Logo" width="468" height="463">                           
-</a>
-
-  <h3 align="center">Name of The Project</h3>
-
-  <p align="center">
-    What does it do ? Briefly.
-    <br />
-    <a href="https://github.com/master-coro/trampoline-posix-apps/readme.md"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/master-coro/trampoline-posix-apps">View Demo</a>
-    ·
-    <a href="https://github.com/master-coro/trampoline-posix-apps/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/master-coro/trampoline-posix-apps/issues">Request Feature</a>
-  </p>
-</p>
-
-## Table of Contents
-
-* [About the Project](#about-the-project)
-* [Setup](#setup)
-* [Run](#run)
-* [Roadmap](#roadmap)
-* [Contribute](#contribute)
-* [License](#license)
-* [Contact](#contact)
-* [Contributors](#contributors)
-
-## About the Project
-
-<!---- what? who? how? what for? for whom? -->
-
-<p align="center">
-    <img src="image/of/the/project" alt="graph" width="800" height="300">
-  </a>
-</p>
-<br />
-<br />
-
-<!---- Could add a more in depth description here -->
-
-<p align="center">
-    <img src="image" alt="Logo" width="800" height="300">
-  </a>
-</p>
-
-## Setup
-
-1. (Optional) Click on `Fork`
-2. Clone the project on your local machine : `git clone https://github.com/master-coro/template.git`
-3. Install dependencies : `insert line to meet dependencies`
-
-## Run
-
-<!--- how to run your app ? -->
-
 ## Roadmap
 
 See the [open issues](https://github.com/master-coro/trampoline-posix-apps/issues) for a list of proposed features (and known issues).
