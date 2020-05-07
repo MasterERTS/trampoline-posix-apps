@@ -19,8 +19,12 @@ ISR (when_a)
 {
     if (revert) {
         i = 2;
+        reset_leds(GREEN);
+        reset_leds(RED);
     } else {
         i = 0;
+        reset_leds(GREEN);
+        reset_leds(BLUE);
     }
     
     if (!active) {
