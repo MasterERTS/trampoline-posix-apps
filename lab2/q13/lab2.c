@@ -22,6 +22,7 @@ ISR (when_a)
         printf("Set Event |SLEEP|\r\n");
     }
     active = !active;
+    ActivateTask(server)
 }
 
 ISR (when_b) 

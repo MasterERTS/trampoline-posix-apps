@@ -15,23 +15,23 @@ int main(void)
 
 ISR (when_a)
 {
-    printf("Pressed A\r\n");
     if (a_pressable == true) {
-        SetRelAlarm(clockFour, 400, 400);
-        SetRelAlarm(clockFive, 500, 500);
+        printf("Pressed A\r\n");
+        SetRelAlarm(clockFour, 400, 0);
+        SetRelAlarm(clockFive, 500, 0);
         a_pressable = false;
     }
 }
 
 ISR (when_b)
 {
-    if (a_pressable == false) 
+    TickType val;
+    if (a_pressable == false && GetAlarm(clockFour, &val) == 0) 
     {
         printf("Pressed B\r\n");
-        long unsigned int* ptr;
-        GetAlarm(clockFour, ptr);
+        GetAlarm(clockFour, &val);
+        printf("Time since pressed A : %ld\r\n", 400 - val);
         CancelAlarm(clockFour);
-        printf("%ld", *ptr);
     }
 }
 
