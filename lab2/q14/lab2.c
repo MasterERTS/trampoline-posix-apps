@@ -5,7 +5,7 @@
 #include "tpl_os.h"
 #include "tpl_posixvp_irq_gen.h"
 
-bool a_pressable = true;
+volatile bool a_pressable = true;
 
 int main(void)
 {

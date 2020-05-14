@@ -15,8 +15,32 @@ TASK(bgTask)
 	printf("start background task\r\n");
 	while(1)
 	{
-		//loop forever
+		if (val < 100) 
+		{
+			val++;
+		}
+		else if (val >= 100) 
+		{
+			val--;
+		}
 	}
     TerminateTask();
 }
 
+TASK(periodicTask)
+{
+	activationCount++;
+	if ((activationCount % 2) == 0) 
+	{
+		val--;
+	} else {
+		val++;
+	}
+	TerminateTask();
+}
+
+TASK(displayTask)
+{
+	printf("%d\r\n", val);
+	TerminateTask();
+}
