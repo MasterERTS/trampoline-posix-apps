@@ -1,0 +1,92 @@
+/* first run:
+ * goil --target=posix --templates=/opt/trampoline/goil/templates/ lab3.oil
+ */
+OIL_VERSION = "2.5";
+
+IMPLEMENTATION trampoline {
+  /* This fix the default STACKSIZE of tasks */
+  TASK {
+    UINT32 STACKSIZE = 32768 ;
+  };
+
+  /* This fix the default STACKSIZE of ISRs */
+  ISR {
+    UINT32 STACKSIZE = 32768 ;
+  };
+};
+
+CPU lab3 {
+  OS config {
+    STATUS = EXTENDED;
+    PAINT_STACK = TRUE;
+    PAINT_REGISTERS = TRUE;
+	TRACE = TRUE {
+		FORMAT = json;
+		PROC = TRUE;
+        RESOURCE = TRUE;
+        ALARM = TRUE;
+        EVENT = TRUE;
+    };
+    BUILD = TRUE {
+      TRAMPOLINE_BASE_PATH = "/opt/trampoline";
+      APP_SRC  = "lab3.c";
+      APP_NAME = "lab3_exe";
+      CFLAGS="-O0 -ggdb";
+      LDFLAGS="-lrt -lpthread";
+      LINKER = "gcc";
+      SYSTEM = PYTHON;
+    };
+  };
+
+
+  APPMODE AppStd {};
+
+  ALARM compPeriod {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = periodicTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 1; 
+      CYCLETIME = 1;
+    };
+  };
+
+  RESOURCE Res_Val {   
+    RESOURCEPROPERTY = STANDARD;
+  };
+
+  ALARM dispPeriod {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = displayTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 200; 
+      CYCLETIME = 200;
+    };
+  };
+
+  TASK bgTask {
+    PRIORITY = 1;
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+    };
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = Res_Val;
+  };
+
+  TASK periodicTask {
+    PRIORITY = 10;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = Res_Val;
+  };
+
+  TASK displayTask {
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
+};
