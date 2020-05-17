@@ -46,8 +46,8 @@ CPU lab3 {
     ACTION = ACTIVATETASK { TASK = periodicTask; };
     AUTOSTART = TRUE {
       APPMODE = AppStd;
-      ALARMTIME = 1; 
-      CYCLETIME = 1;
+      ALARMTIME = 5; 
+      CYCLETIME = 5;
     };
   };
 

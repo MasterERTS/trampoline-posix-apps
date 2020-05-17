@@ -38,13 +38,54 @@ CPU lab3 {
     };
   };
 
+
   APPMODE AppStd {};
+
+  ALARM compPeriod {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = periodicTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 10; 
+      CYCLETIME = 10;
+    };
+  };
+
+  RESOURCE Res_Val {   
+    RESOURCEPROPERTY = INTERNAL;
+  };
+
+  ALARM dispPeriod {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = displayTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 200; 
+      CYCLETIME = 200;
+    };
+  };
 
   TASK bgTask {
     PRIORITY = 1;
     AUTOSTART = TRUE {
       APPMODE = AppStd;
     };
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = Res_Val;
+  };
+
+  TASK periodicTask {
+    PRIORITY = 10;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = Res_Val;
+  };
+
+  TASK displayTask {
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
     ACTIVATION = 1;
     SCHEDULE = FULL;
   };

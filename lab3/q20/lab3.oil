@@ -46,13 +46,13 @@ CPU lab3 {
     ACTION = ACTIVATETASK { TASK = periodicTask; };
     AUTOSTART = TRUE {
       APPMODE = AppStd;
-      ALARMTIME = 10; 
-      CYCLETIME = 10;
+      ALARMTIME = 5; 
+      CYCLETIME = 5;
     };
   };
 
   RESOURCE Res_Val {   
-    RESOURCEPROPERTY = STANDARD;
+    RESOURCEPROPERTY = INTERNAL;
   };
 
   ALARM dispPeriod {
@@ -71,22 +71,20 @@ CPU lab3 {
       APPMODE = AppStd;
     };
     ACTIVATION = 1;
-    SCHEDULE = FULL;
-    RESOURCE = Res_Val;
+    SCHEDULE = NON;
   };
 
   TASK periodicTask {
     PRIORITY = 10;
     AUTOSTART = FALSE;
     ACTIVATION = 1;
-    SCHEDULE = FULL;
-    RESOURCE = Res_Val;
+    SCHEDULE = NON;
   };
 
   TASK displayTask {
     PRIORITY = 2;
     AUTOSTART = FALSE;
     ACTIVATION = 1;
-    SCHEDULE = FULL;
+    SCHEDULE = NON;
   };
 };

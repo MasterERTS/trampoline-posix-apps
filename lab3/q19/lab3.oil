@@ -1,5 +1,5 @@
 /* first run:
- * goil --target=posix --templates=/opt/trampoline/goil/templates/ lab2.oil
+ * goil --target=posix --templates=/opt/trampoline/goil/templates/ lab3.oil
  */
 OIL_VERSION = "2.5";
 
@@ -15,7 +15,7 @@ IMPLEMENTATION trampoline {
   };
 };
 
-CPU lab1 {
+CPU lab3 {
   OS config {
     STATUS = EXTENDED;
     PAINT_STACK = TRUE;
@@ -29,65 +29,58 @@ CPU lab1 {
     };
     BUILD = TRUE {
       TRAMPOLINE_BASE_PATH = "/opt/trampoline";
-      APP_SRC  = "lab2.c";
-      APP_NAME = "lab2_exe";
-      CFLAGS="-ggdb";
+      APP_SRC  = "lab3.c";
+      APP_NAME = "lab3_exe";
+      CFLAGS="-O0 -ggdb";
       LDFLAGS="-lrt -lpthread";
       LINKER = "gcc";
       SYSTEM = PYTHON;
     };
   };
 
+
   APPMODE AppStd {};
 
-  ALARM halfSec {
+  ALARM compPeriod {
     COUNTER = SystemCounter;
-    ACTION = ACTIVATETASK { TASK = task1; };
-    AUTOSTART = FALSE;
+    ACTION = ACTIVATETASK { TASK = periodicTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 5; 
+      CYCLETIME = 5;
+    };
   };
 
-  EVENT wakeup {
-    MASK = AUTO;
+  ALARM dispPeriod {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = displayTask; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 200; 
+      CYCLETIME = 200;
+    };
   };
 
-  EVENT sleeping {
-    MASK = AUTO;
-  };
-
-  EVENT terminate {
-    MASK = AUTO;
-  };
-
-  ISR when_a {
-    SOURCE = SIGTERM;
-    CATEGORY = 2;
-    PRIORITY = 2;
-  };
-
-  ISR when_b {
-    SOURCE = SIGTRAP;
-    CATEGORY = 2;
-    PRIORITY = 2;
-  };
-
-  TASK task1 {
-    PRIORITY = 2;
-    AUTOSTART = FALSE;
-    ACTIVATION = 1;
-    SCHEDULE = FULL;
-  };
-
-  TASK server {
-    PRIORITY = 3;
-    AUTOSTART = TRUE 
-    {
+  TASK bgTask {
+    PRIORITY = 1;
+    AUTOSTART = TRUE {
       APPMODE = AppStd;
     };
     ACTIVATION = 1;
-    EVENT = wakeup;
-    EVENT = sleeping;
-    EVENT = terminate;
     SCHEDULE = FULL;
   };
 
+  TASK periodicTask {
+    PRIORITY = 1;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
+
+  TASK displayTask {
+    PRIORITY = 1;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
 };

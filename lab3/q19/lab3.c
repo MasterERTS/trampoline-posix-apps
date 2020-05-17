@@ -13,17 +13,18 @@ FUNC(int, OS_APPL_CODE) main(void)
 
 TASK(bgTask)
 {
-	printf("start background task\r\n");
-	static bool state = true;
-	while(1)
-	{
-		if (val < 0 && state == false) state = true;
-		if (val > 50 && state == true) state = false;
-
-		if (state) val++;
-		if (!state) val--;
+	static bool initizalized;
+	if (!initizalized) {
+		printf("start background task\r\n");
+		initizalized = true;
 	}
-    TerminateTask();
+	static bool state = true;
+	if (val < 0 && state == false) state = true;
+	if (val > 50 && state == true) state = false;
+
+	if (state) val++;
+	if (!state) val--;
+	ChainTask(bgTask);
 }
 
 TASK(periodicTask)
@@ -35,7 +36,7 @@ TASK(periodicTask)
 	} else {
 		val++;
 	}
-	printf("I was here\r\n");
+	//printf("I was here\r\n");
 	TerminateTask();
 }
 

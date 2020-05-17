@@ -20,7 +20,13 @@ CPU lab1 {
     STATUS = EXTENDED;
     PAINT_STACK = TRUE;
     PAINT_REGISTERS = TRUE;
-	TRACE = FALSE;
+	TRACE = TRUE {
+		FORMAT = json;
+		PROC = TRUE;
+        RESOURCE = TRUE;
+        ALARM = TRUE;
+        EVENT = TRUE;
+    };
     BUILD = TRUE {
       TRAMPOLINE_BASE_PATH = "/opt/trampoline";
       APP_SRC  = "lab4.c";
@@ -34,13 +40,17 @@ CPU lab1 {
 
   APPMODE AppStd {};
 
+  EVENT new_value {
+    MASK = AUTO;
+  };
+
   MESSAGE from_send {
     MESSAGEPROPERTY = SEND_STATIC_INTERNAL {
       CDATATYPE = "unsigned int";
     };
   };
 
-  MESSAGE for_receive {
+  MESSAGE for_receive_auto {
     MESSAGEPROPERTY = RECEIVE_QUEUED_INTERNAL {
       SENDINGMESSAGE = from_send;
       FILTER = ALWAYS;
@@ -51,11 +61,25 @@ CPU lab1 {
     };
   };
 
-  TASK send {
-    PRIORITY = 1;
-    AUTOSTART = TRUE { APPMODE = AppStd; };
-    ACTIVATION = 1;
-    SCHEDULE = FULL;
+  MESSAGE for_receive_event {
+    MESSAGEPROPERTY = RECEIVE_QUEUED_INTERNAL {
+      SENDINGMESSAGE = from_send;
+      FILTER = ALWAYS;
+      QUEUESIZE = 1;
+    };
+    NOTIFICATION = ACTIVATETASK {
+      TASK = t_event;
+    };
+  };
+
+  ALARM oneSec {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = send; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 100; 
+      CYCLETIME = 100;
+    };
   };
 
   TASK receive {
@@ -65,4 +89,18 @@ CPU lab1 {
     SCHEDULE = FULL;
   };
 
+  TASK t_event {
+    PRIORITY = 5;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    EVENT = new_value;
+  };
+
+  TASK send {
+    PRIORITY = 1;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+  };
 };

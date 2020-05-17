@@ -20,7 +20,13 @@ CPU lab1 {
     STATUS = EXTENDED;
     PAINT_STACK = TRUE;
     PAINT_REGISTERS = TRUE;
-	TRACE = FALSE;
+	TRACE = TRUE {
+		FORMAT = json;
+		PROC = TRUE;
+        RESOURCE = TRUE;
+        ALARM = TRUE;
+        EVENT = TRUE;
+    };
     BUILD = TRUE {
       TRAMPOLINE_BASE_PATH = "/opt/trampoline";
       APP_SRC  = "lab2.c";

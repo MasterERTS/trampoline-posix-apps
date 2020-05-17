@@ -1,5 +1,5 @@
 /* first run:
- * goil --target=posix --templates=/opt/trampoline/goil/templates/ lab2.oil
+ * goil --target=posix --templates=/opt/trampoline/goil/templates/ lab4.oil
  */
 OIL_VERSION = "2.5";
 
@@ -29,8 +29,8 @@ CPU lab1 {
     };
     BUILD = TRUE {
       TRAMPOLINE_BASE_PATH = "/opt/trampoline";
-      APP_SRC  = "lab2.c";
-      APP_NAME = "lab2_exe";
+      APP_SRC  = "lab4.c";
+      APP_NAME = "lab4_exe";
       CFLAGS="-ggdb";
       LDFLAGS="-lrt -lpthread";
       LINKER = "gcc";
@@ -40,53 +40,34 @@ CPU lab1 {
 
   APPMODE AppStd {};
 
-  ALARM halfSec {
-    COUNTER = SystemCounter;
-    ACTION = ACTIVATETASK { TASK = task1; };
-    AUTOSTART = FALSE;
+  MESSAGE from_send {
+    MESSAGEPROPERTY = SEND_STATIC_INTERNAL {
+      CDATATYPE = "unsigned int";
+    };
   };
 
-  EVENT wakeup {
-    MASK = AUTO;
+  MESSAGE for_receive {
+    MESSAGEPROPERTY = RECEIVE_QUEUED_INTERNAL {
+      SENDINGMESSAGE = from_send;
+      FILTER = ALWAYS;
+      QUEUESIZE = 1;
+    };
+    NOTIFICATION = ACTIVATETASK {
+      TASK = receive;
+    };
   };
 
-  EVENT sleeping {
-    MASK = AUTO;
-  };
-
-  EVENT terminate {
-    MASK = AUTO;
-  };
-
-  ISR when_a {
-    SOURCE = SIGTERM;
-    CATEGORY = 2;
-    PRIORITY = 2;
-  };
-
-  ISR when_b {
-    SOURCE = SIGTRAP;
-    CATEGORY = 2;
-    PRIORITY = 2;
-  };
-
-  TASK task1 {
-    PRIORITY = 2;
-    AUTOSTART = FALSE;
+  TASK send {
+    PRIORITY = 1;
+    AUTOSTART = TRUE { APPMODE = AppStd; };
     ACTIVATION = 1;
     SCHEDULE = FULL;
   };
 
-  TASK server {
-    PRIORITY = 3;
-    AUTOSTART = TRUE 
-    {
-      APPMODE = AppStd;
-    };
+  TASK receive {
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
     ACTIVATION = 1;
-    EVENT = wakeup;
-    EVENT = sleeping;
-    EVENT = terminate;
     SCHEDULE = FULL;
   };
 
