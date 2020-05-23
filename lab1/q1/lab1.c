@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "tpl_os.h"
 
-StatusType status;
-
 FUNC(int, OS_APPL_CODE) main(void)
 {
     StartOS(OSDEFAULTAPPMODE);
@@ -12,14 +10,14 @@ FUNC(int, OS_APPL_CODE) main(void)
 TASK(task1)
 {
 	printf("Hello world\r\n");
+    ActivateTask(task2);
     ActivateTask(task3);
-    status = ChainTask(task2);
+    TerminateTask();
 }
 
 TASK(task2)
 {
     printf("== Task 2 ==\r\n");
-    printf("%d\r\n", status);
     TerminateTask();
 }
 

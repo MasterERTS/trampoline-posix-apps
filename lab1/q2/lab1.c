@@ -12,6 +12,7 @@ TASK(task1)
 	printf("Hello world\r\n");
     ActivateTask(task2);
     ChainTask(task3);
+    printf("Is it printing ?\r\n");
 }
 
 TASK(task2)
