@@ -14,6 +14,7 @@ int main(void)
 ISR (when_a)
 {
     static bool active = true;
+    ActivateTask(server);
     if (active) {
         SetEvent(server, wakeup);
         printf("Set Event |WAKEUP|\r\n");
@@ -22,14 +23,13 @@ ISR (when_a)
         printf("Set Event |SLEEP|\r\n");
     }
     active = !active;
-    ActivateTask(server)
 }
 
 ISR (when_b) 
 {
+    ActivateTask(server);
     SetEvent(server, terminate);
     printf("Set Event |TERMINATE|\r\n");
-    ActivateTask(server);
 }
 
 TASK (server)

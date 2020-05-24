@@ -36,7 +36,6 @@ TASK(periodicTask)
 	} else {
 		val++;
 	}
-	printf("I was here\r\n");
 	TerminateTask();
 }
 
