@@ -1,0 +1,102 @@
+/* first run:
+ * goil --target=posix --templates=/opt/trampoline/goil/templates/ exam.oil
+ */
+OIL_VERSION = "2.5";
+
+IMPLEMENTATION trampoline {
+  /* This fix the default STACKSIZE of tasks */
+  TASK {
+    UINT32 STACKSIZE = 32768 ;
+  };
+
+  /* This fix the default STACKSIZE of ISRs */
+  ISR {
+    UINT32 STACKSIZE = 32768 ;
+  };
+};
+
+CPU exam {
+  OS config {
+    STATUS = EXTENDED;
+    PAINT_STACK = TRUE;
+    PAINT_REGISTERS = TRUE;
+	TRACE = TRUE {
+		FORMAT = json;
+		PROC = TRUE;
+        RESOURCE = TRUE;
+        ALARM = TRUE;
+        EVENT = TRUE;
+    };
+    BUILD = TRUE {
+      TRAMPOLINE_BASE_PATH = "/opt/trampoline";
+      APP_SRC  = "exam.c";
+      APP_NAME = "exam_exe";
+      CFLAGS="-O0 -ggdb";
+      LDFLAGS="-lrt -lpthread";
+      LINKER = "gcc";
+      SYSTEM = PYTHON;
+    };
+  };
+
+
+  APPMODE AppStd {};
+
+  ALARM periodic_60ms {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = t_periodic_60ms; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 6; 
+      CYCLETIME = 6;
+    };
+  };
+
+  ALARM periodic_40ms {
+    COUNTER = SystemCounter;
+    ACTION = ACTIVATETASK { TASK = t_periodic_40ms; };
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+      ALARMTIME = 4; 
+      CYCLETIME = 4;
+    };
+  };
+
+  EVENT ev_a {
+    MASK = AUTO;
+  };
+
+  EVENT ev_b {
+    MASK = AUTO;
+  };
+
+  RESOURCE res {   
+    RESOURCEPROPERTY = INTERNAL;
+  };
+
+  TASK t_event_a_or_b {
+    PRIORITY = 1;
+    AUTOSTART = TRUE {
+      APPMODE = AppStd;
+    };
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    EVENT = ev_a;
+    EVENT = ev_b;
+  };
+
+  TASK t_periodic_40ms{
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = res;
+  };
+
+  TASK t_periodic_60ms {
+    PRIORITY = 2;
+    AUTOSTART = FALSE;
+    ACTIVATION = 1;
+    SCHEDULE = FULL;
+    RESOURCE = res;
+  };
+};

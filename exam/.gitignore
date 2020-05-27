@@ -1,0 +1,11 @@
+exam
+exam_exe
+exam.json
+readTrace.py
+trace.json
+build
+*.elf
+*.bin
+*.map
+make.py
+build.py

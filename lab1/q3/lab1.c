@@ -12,8 +12,8 @@ FUNC(int, OS_APPL_CODE) main(void)
 TASK(task1)
 {
 	printf("Hello world\r\n");
-    ActivateTask(task3);
     status = ChainTask(task2);
+    ActivateTask(task3);
 }
 
 TASK(task2)
